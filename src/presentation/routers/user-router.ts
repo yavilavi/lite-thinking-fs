@@ -25,7 +25,12 @@ export default function UserRouter(
       // @ts-ignore
       const user = await getUserByIdUseCase.execute(Number(req.auth.id))
       res.statusCode = !user ? 404 : 200;
-      res.json(!user ? req: user);
+      res.json(!user ? { message: "User not found" } : {
+        role: user.role,
+        name: user.name,
+        email: user.email,
+        id: user.id
+      });
     } catch (err) {
       console.log(err)
       res.status(404).send({ message: "User not found me" })
