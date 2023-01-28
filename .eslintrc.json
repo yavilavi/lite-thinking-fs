@@ -1,0 +1,65 @@
+{
+  "env": {
+    "es6": true
+  },
+  "globals": {
+    "process": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  ],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "ignorePatterns": [
+    "dist/**/*.*"
+  ],
+  "rules": {
+    "no-var": "error",
+    "no-param-reassign": "error",
+    "prefer-const": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "react/prop-types": "off",
+    "no-void": "off",
+    "prefer-rest-params": "off",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/require-await": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/unbound-method": "off",
+    "functional/no-return-void": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.spec.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "no-void": "off"
+      }
+    },
+    {
+      "files": [
+        "*.d.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "no-void": "off"
+      }
+    }
+  ],
+  "settings": {}
+}
