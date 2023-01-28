@@ -1,6 +1,8 @@
 import "reflect-metadata"
 import server from './server'
 import { AppDataSource } from "./data/data-sources/typeORM/data-source";
+import cors from "cors";
+import helmet from "helmet";
 
 // Routers
 import UserRouter from './presentation/routers/user-router'
@@ -23,6 +25,18 @@ import { DeleteCompany } from "./domain/use-cases/company/delete-company";
 
 import { Login } from "./domain/use-cases/authentication/login";
 import { secured } from "./domain/middlewares";
+
+server.use(helmet.contentSecurityPolicy());
+server.use(helmet.dnsPrefetchControl());
+server.use(helmet.expectCt());
+server.use(helmet.frameguard());
+server.use(helmet.hidePoweredBy());
+server.use(helmet.hsts());
+server.use(helmet.ieNoOpen());
+server.use(helmet.noSniff());
+server.use(helmet.permittedCrossDomainPolicies());
+server.use(helmet.referrerPolicy());
+server.use(cors() as (req, res, next) => {});
 
 
 const userMiddleWare = UserRouter(
