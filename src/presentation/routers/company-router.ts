@@ -36,7 +36,10 @@ export default function CompanyRouter(
   });
 
   router.get('/getAll', async (req: Request, res: Response) => {
+
     try {
+      // @ts-ignore
+      console.log("req.auth", req.auth);
       const companies = await getAllCompaniesUseCase.execute()
       res.statusCode = 200;
       res.json(companies);
