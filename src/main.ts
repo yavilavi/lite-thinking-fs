@@ -38,9 +38,9 @@ const companyMiddleware = CompanyRouter(
 )
 
 // Routes
-server.use("/user", userMiddleWare);
-server.use("/item", itemMiddleware);
-server.use("/company", companyMiddleware);
+server.use("/api/user", userMiddleWare);
+server.use("/api/item", itemMiddleware);
+server.use("/api/company", companyMiddleware);
 
 AppDataSource.initialize()
   .then(() => {
