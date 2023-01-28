@@ -26,14 +26,14 @@ import { DeleteCompany } from "./domain/use-cases/company/delete-company";
 import { Login } from "./domain/use-cases/authentication/login";
 import { secured } from "./domain/middlewares";
 
-// server.use(helmet.contentSecurityPolicy());
-// server.use(helmet.hidePoweredBy());
-// server.use(helmet.hsts());
-// server.use(helmet.ieNoOpen());
-// server.use(helmet.noSniff());
-// server.use(helmet.permittedCrossDomainPolicies());
-// server.use(helmet.referrerPolicy());
-// server.use(cors() as (req, res, next) => {});
+server.use(helmet.contentSecurityPolicy());
+server.use(helmet.hidePoweredBy());
+server.use(helmet.hsts());
+server.use(helmet.ieNoOpen());
+server.use(helmet.noSniff());
+server.use(helmet.permittedCrossDomainPolicies());
+server.use(helmet.referrerPolicy());
+server.use(cors() as (req, res, next) => {});
 
 
 const userMiddleWare = UserRouter(
