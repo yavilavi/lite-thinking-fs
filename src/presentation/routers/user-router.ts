@@ -2,6 +2,7 @@ import express from 'express'
 import { Request, Response } from 'express'
 import { UpsertUserUseCase } from "../../domain/interfaces/use-cases/user/upsert-user";
 import { GetUserByIdUseCase } from "../../domain/interfaces/use-cases/user/get-user-by-id";
+import { adminRequired } from "../../domain/middlewares";
 
 export default function UserRouter(
   createUserUseCase: UpsertUserUseCase,
@@ -9,7 +10,7 @@ export default function UserRouter(
 ) {
   const router = express.Router();
 
-  router.post('/', async (req: Request, res: Response) => {
+  router.post('/', adminRequired, async (req: Request, res: Response) => {
     try {
       const user = await createUserUseCase.execute(req.body)
       res.statusCode = 201

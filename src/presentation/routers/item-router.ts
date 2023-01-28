@@ -2,6 +2,7 @@ import express from 'express'
 import { Request, Response } from 'express'
 import { UpsertItemUseCase } from "../../domain/interfaces/use-cases/item/upsert-item";
 import { GetAllItemsUseCase } from "../../domain/interfaces/use-cases/item/get-all-items";
+import { adminRequired } from "../../domain/middlewares";
 
 export default function ItemRouter(
   upsertItemUseCase: UpsertItemUseCase,
@@ -9,7 +10,7 @@ export default function ItemRouter(
 ) {
   const router = express.Router();
 
-  router.post('/', async (req: Request, res: Response) => {
+  router.post('/', adminRequired, async (req: Request, res: Response) => {
     try {
       const item = await upsertItemUseCase.execute(req.body)
       res.statusCode = 201

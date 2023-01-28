@@ -6,6 +6,8 @@ import { AppDataSource } from "./data/data-sources/typeORM/data-source";
 import UserRouter from './presentation/routers/user-router'
 import ItemRouter from "./presentation/routers/item-router";
 import CompanyRouter from "./presentation/routers/company-router";
+import AuthenticationRouter from "./presentation/routers/authentication-router";
+
 
 //Use cases
 import { UpsertUser } from './domain/use-cases/user/upsert-user'
@@ -18,6 +20,9 @@ import { UpsertCompany } from "./domain/use-cases/company/upsert-company";
 import { GetCompanyByNIT } from "./domain/use-cases/company/get-company-by-NIT";
 import { GetAllCompanies } from "./domain/use-cases/company/get-all-companies";
 import { DeleteCompany } from "./domain/use-cases/company/delete-company";
+
+import { Login } from "./domain/use-cases/authentication/login";
+import { secured } from "./domain/middlewares";
 
 
 const userMiddleWare = UserRouter(
@@ -37,6 +42,13 @@ const companyMiddleware = CompanyRouter(
   new DeleteCompany(AppDataSource)
 )
 
+const authenticationMiddleware = AuthenticationRouter(
+  new Login(AppDataSource)
+)
+
+server.use("/api/auth", authenticationMiddleware);
+
+server.use(secured());
 // Routes
 server.use("/api/user", userMiddleWare);
 server.use("/api/item", itemMiddleware);

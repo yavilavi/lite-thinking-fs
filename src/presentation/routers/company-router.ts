@@ -4,6 +4,7 @@ import { UpsertCompanyUseCase } from "../../domain/interfaces/use-cases/company/
 import { GetCompanyByNITUseCase } from "../../domain/interfaces/use-cases/company/get-company-by-NIT";
 import { GetAllCompaniesUseCase } from "../../domain/interfaces/use-cases/company/get-all-companies";
 import { DeleteCompanyUseCase } from "../../domain/interfaces/use-cases/company/delete-company";
+import { adminRequired } from "../../domain/middlewares";
 
 export default function CompanyRouter(
   createCompanyUseCase: UpsertCompanyUseCase,
@@ -13,7 +14,7 @@ export default function CompanyRouter(
 ) {
   const router = express.Router();
 
-  router.post('/', async (req: Request, res: Response) => {
+  router.post('/', adminRequired, async (req: Request, res: Response) => {
     try {
       const company = await createCompanyUseCase.execute(req.body)
       res.statusCode = 201
@@ -44,7 +45,7 @@ export default function CompanyRouter(
     }
   });
 
-  router.delete('/:NIT', async (req: Request, res: Response) => {
+  router.delete('/:NIT', adminRequired, async (req: Request, res: Response) => {
     try {
       const deleted = await deleteCompanyUseCase.execute(Number(req.params.NIT))
       res.statusCode = !deleted || deleted?.affected ===0 ? 404 : 200;
