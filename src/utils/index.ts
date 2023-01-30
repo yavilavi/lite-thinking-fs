@@ -5,14 +5,16 @@ import fs from "fs";
 
 const AWS_CONFIG = {
   credentials: {
-    accessKeyId: "AKIAUPEZD447B7LQOSFC",
-    secretAccessKey: "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"
+    accessKeyId: process.env.AWS_KEY_ID,
+    secretAccessKey: process.env.AWS_KEY_SECRET
   },
   region: "us-east-1",
 }
 
+// @ts-ignore
 const AWS_SES = new AWS.SES(AWS_CONFIG);
 
+// @ts-ignore
 const s3 = new AWS.S3(AWS_CONFIG);
 
 export const cleanDB = async (dataSource: DataSource) => {
@@ -46,8 +48,9 @@ export const uploadToS3 = async (fileName:string) => {
   console.log("filesize: " + stats.size);
   console.log("starting s3 putObject");
   try {
+    // @ts-ignore
     return await s3.putObject({
-      Bucket: "pruebas-yilmer/lite-thinking/pdf",
+      Bucket: process.env.BUCKET_NAME,
       Key: fileName,
       Body: fs.createReadStream(fileName),
       ContentType: "application/pdf",
