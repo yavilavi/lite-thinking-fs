@@ -1,5 +1,5 @@
 import { Company } from "../../../entities/company.entity";
 
-export interface UpsertCompanyUseCase {
+export interface CreateCompanyUseCase {
   execute(company: Company): Promise<Company>;
 }

@@ -1,8 +1,8 @@
-import { UpsertCompanyUseCase } from "../../interfaces/use-cases/company/upsert-company";
+import { CreateCompanyUseCase } from "../../interfaces/use-cases/company/create-company";
 import { DataSource, Repository } from "typeorm";
 import { Company } from "../../entities/company.entity";
 
-export class UpsertCompany implements UpsertCompanyUseCase {
+export class CreateCompany implements CreateCompanyUseCase {
   companyRepository: Repository<Company>
 
   constructor(dataSource: DataSource) {

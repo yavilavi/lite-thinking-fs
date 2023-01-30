@@ -18,7 +18,7 @@ import { GetUserById } from "./domain/use-cases/user/get-user-by-id";
 import { UpsertItem } from "./domain/use-cases/item/upsert-item";
 import { GetAllItems } from "./domain/use-cases/item/get-all-items";
 
-import { UpsertCompany } from "./domain/use-cases/company/upsert-company";
+import { CreateCompany } from "./domain/use-cases/company/create-company";
 import { GetCompanyByNIT } from "./domain/use-cases/company/get-company-by-NIT";
 import { GetAllCompanies } from "./domain/use-cases/company/get-all-companies";
 import { DeleteCompany } from "./domain/use-cases/company/delete-company";
@@ -47,7 +47,7 @@ const itemMiddleware = ItemRouter(
 )
 
 const companyMiddleware = CompanyRouter(
-  new UpsertCompany(AppDataSource),
+  new CreateCompany(AppDataSource),
   new GetCompanyByNIT(AppDataSource),
   new GetAllCompanies(AppDataSource),
   new DeleteCompany(AppDataSource)
