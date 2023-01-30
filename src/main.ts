@@ -25,6 +25,7 @@ import { DeleteCompany } from "./domain/use-cases/company/delete-company";
 
 import { Login } from "./domain/use-cases/authentication/login";
 import { secured } from "./domain/middlewares";
+import { UpdateCompany } from "./domain/use-cases/company/update-company";
 
 server.use(helmet.contentSecurityPolicy());
 server.use(helmet.hidePoweredBy());
@@ -50,7 +51,8 @@ const companyMiddleware = CompanyRouter(
   new CreateCompany(AppDataSource),
   new GetCompanyByNIT(AppDataSource),
   new GetAllCompanies(AppDataSource),
-  new DeleteCompany(AppDataSource)
+  new DeleteCompany(AppDataSource),
+  new UpdateCompany(AppDataSource)
 )
 
 const authenticationMiddleware = AuthenticationRouter(
