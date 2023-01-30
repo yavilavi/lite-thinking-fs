@@ -2,11 +2,13 @@ import express from 'express'
 import { Request, Response } from 'express'
 import { UpsertItemUseCase } from "../../domain/interfaces/use-cases/item/upsert-item";
 import { GetAllItemsUseCase } from "../../domain/interfaces/use-cases/item/get-all-items";
+import { GenerateStockPDFUseCase } from "../../domain/interfaces/use-cases/item/generate-stock-pdf";
 import { adminRequired } from "../../domain/middlewares";
 
 export default function ItemRouter(
   upsertItemUseCase: UpsertItemUseCase,
   getAllItemsUseCase: GetAllItemsUseCase,
+  generateStockPDFUseCase: GenerateStockPDFUseCase,
 ) {
   const router = express.Router();
 
@@ -30,6 +32,15 @@ export default function ItemRouter(
     }
   });
 
+  router.post('/generatePDF', async (req: Request, res: Response) => {
+    try {
+      const items = await generateStockPDFUseCase.execute()
+      res.statusCode = 200;
+      res.json(items);
+    } catch (err) {
+      res.status(500).send({ message: err })
+    }
+  });
 
   return router
 };

@@ -26,6 +26,7 @@ import { DeleteCompany } from "./domain/use-cases/company/delete-company";
 import { Login } from "./domain/use-cases/authentication/login";
 import { secured } from "./domain/middlewares";
 import { UpdateCompany } from "./domain/use-cases/company/update-company";
+import { GenerateStockPDF } from "./domain/use-cases/item/generate-pdf";
 
 server.use(helmet.contentSecurityPolicy());
 server.use(helmet.hidePoweredBy());
@@ -45,6 +46,7 @@ const userMiddleWare = UserRouter(
 const itemMiddleware = ItemRouter(
   new UpsertItem(AppDataSource),
   new GetAllItems(AppDataSource),
+  new GenerateStockPDF(AppDataSource),
 )
 
 const companyMiddleware = CompanyRouter(

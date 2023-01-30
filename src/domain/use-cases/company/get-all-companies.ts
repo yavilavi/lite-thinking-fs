@@ -4,13 +4,13 @@ import { Company } from "../../entities/company.entity";
 
 
 export class GetAllCompanies implements GetAllCompaniesUseCase {
-  itemRepository: Repository<Company>
+  companyRepository: Repository<Company>
 
   constructor(dataSource: DataSource) {
-    this.itemRepository = dataSource.getRepository(Company)
+    this.companyRepository = dataSource.getRepository(Company)
   }
 
   async execute(): Promise<Company[]> {
-    return await this.itemRepository.find({ where: { isDeleted: false } });
+    return await this.companyRepository.find({ where: { isDeleted: false } });
   }
 }

@@ -11,6 +11,11 @@ export class GetAllItems implements GetAllItemsUseCase {
   }
 
   async execute(): Promise<Item[]> {
-    return await this.itemRepository.find();
+    const [ items ] = await this.itemRepository
+      .createQueryBuilder("item")
+      .leftJoinAndSelect("item.company", "company")
+      .where("company.isDeleted = :isDeleted", { isDeleted: false })
+      .getManyAndCount();
+    return items;
   }
 }
