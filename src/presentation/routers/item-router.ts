@@ -16,7 +16,6 @@ export default function ItemRouter(
       res.statusCode = 201
       res.json(item)
     } catch (err) {
-      console.log(err);
       res.status(500).send({ message: "Error saving data" })
     }
   });

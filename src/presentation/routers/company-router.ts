@@ -22,7 +22,6 @@ export default function CompanyRouter(
       res.statusCode = 201
       res.json(company)
     } catch (err) {
-      console.log(err);
       res.status(500).send({ message: "Error saving data" })
     }
   });
@@ -41,7 +40,6 @@ export default function CompanyRouter(
 
     try {
       // @ts-ignore
-      console.log("req.auth", req.auth);
       const companies = await getAllCompaniesUseCase.execute()
       res.statusCode = 200;
       res.json(companies);

@@ -32,7 +32,6 @@ export default function UserRouter(
         id: user.id
       });
     } catch (err) {
-      console.log(err)
       res.status(404).send({ message: "User not found me" })
     }
   })

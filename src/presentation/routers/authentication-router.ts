@@ -13,7 +13,6 @@ export default function AuthenticationRouter(
       res.statusCode = response.authenticated? 200 : 401;
       res.json(response)
     } catch (err) {
-      console.log(err);
       res.status(401).send({ message: "Error login in" })
     }
   });

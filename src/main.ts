@@ -67,7 +67,7 @@ server.use("/api/company", companyMiddleware);
 
 AppDataSource.initialize()
   .then(() => {
-    server.listen(3001, () => console.log("Server running"));
+    server.listen(3001, () => console.info("Server running"));
   })
-  .catch((error) => console.log(error))
+  .catch((error) => console.error(error))
 
