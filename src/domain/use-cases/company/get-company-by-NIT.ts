@@ -11,6 +11,6 @@ export class GetCompanyByNIT implements GetCompanyByNITUseCase {
   }
 
   async execute(companyNIT: string): Promise<Company | null> {
-    return await this.companyRepository.findOne({ where: { NIT: companyNIT} })
+    return await this.companyRepository.findOne({ where: { NIT: companyNIT, isDeleted: false } })
   }
 }
