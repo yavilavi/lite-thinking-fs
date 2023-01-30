@@ -11,7 +11,7 @@ export class Item {
   name!: string
 
   @Column()
-  companyNIT!: number
+  companyNIT!: string
 
   @Column()
   stock!: number

@@ -27,7 +27,7 @@ export default function CompanyRouter(
 
   router.get('/getByNIT/:NIT', async (req: Request, res: Response) => {
     try {
-      const company = await getCompanyByNITUseCase.execute(Number(req.params.NIT))
+      const company = await getCompanyByNITUseCase.execute(req.params.NIT)
       res.statusCode = !company ? 404 : 200;
       res.json(!company ? { message: "Company not found" } : company);
     } catch (err) {
@@ -50,7 +50,7 @@ export default function CompanyRouter(
 
   router.delete('/:NIT', adminRequired, async (req: Request, res: Response) => {
     try {
-      const deleted = await deleteCompanyUseCase.execute(Number(req.params.NIT))
+      const deleted = await deleteCompanyUseCase.execute(req.params.NIT)
       res.statusCode = !deleted || deleted?.affected ===0 ? 404 : 200;
       ;
       res.json(!deleted || deleted?.affected ===0 ? { message: "Company not found" } : deleted);

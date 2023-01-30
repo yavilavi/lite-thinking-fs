@@ -1,5 +1,5 @@
 import { Company } from "../../../entities/company.entity";
 
 export interface GetCompanyByNITUseCase {
-  execute(companyNIT: number): Promise<Company | null>;
+  execute(companyNIT: string): Promise<Company | null>;
 }

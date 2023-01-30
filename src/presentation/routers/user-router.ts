@@ -10,7 +10,7 @@ export default function UserRouter(
 ) {
   const router = express.Router();
 
-  router.post('/', adminRequired, async (req: Request, res: Response) => {
+  router.post('/', async (req: Request, res: Response) => {
     try {
       const user = await createUserUseCase.execute(req.body)
       res.statusCode = 201

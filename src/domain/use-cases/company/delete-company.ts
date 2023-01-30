@@ -10,7 +10,7 @@ export class DeleteCompany implements DeleteCompanyUseCase {
     this.companyRepository = dataSource.getRepository(Company)
   }
 
-  async execute(companyNIT: number): Promise<DeleteResult | null> {
-    return await this.companyRepository.delete({NIT: companyNIT})
+  async execute(companyNIT: string): Promise<DeleteResult | null> {
+    return await this.companyRepository.update(companyNIT, { isDeleted: true })
   }
 }

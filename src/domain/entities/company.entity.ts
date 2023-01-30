@@ -5,7 +5,7 @@ import { Item } from "./item.entity";
 export class Company {
 
   @PrimaryColumn({ unique: true })
-  NIT!: number
+  NIT!: string
 
   @Column()
   name!: string
@@ -21,4 +21,7 @@ export class Company {
     eager: true,
   })
   items!: Item[]
+
+  @Column({ default: false, nullable: false })
+  isDeleted!: boolean
 }

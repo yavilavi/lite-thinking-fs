@@ -10,7 +10,7 @@ export class GetCompanyByNIT implements GetCompanyByNITUseCase {
     this.companyRepository = dataSource.getRepository(Company)
   }
 
-  async execute(companyNIT: number): Promise<Company | null> {
+  async execute(companyNIT: string): Promise<Company | null> {
     return await this.companyRepository.findOne({ where: { NIT: companyNIT} })
   }
 }

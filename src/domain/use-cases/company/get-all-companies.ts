@@ -9,7 +9,8 @@ export class GetAllCompanies implements GetAllCompaniesUseCase {
   constructor(dataSource: DataSource) {
     this.itemRepository = dataSource.getRepository(Company)
   }
+
   async execute(): Promise<Company[]> {
-    return await this.itemRepository.find();
+    return await this.itemRepository.find({ where: { isDeleted: false } });
   }
 }
