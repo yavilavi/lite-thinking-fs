@@ -1,6 +1,10 @@
 import { DataSource, Repository } from "typeorm";
 import { GenerateStockPDFUseCase } from "../../interfaces/use-cases/item/generate-stock-pdf";
 import { Item } from "../../entities/item.entity";
+import { sendEmail, uploadToS3 } from "../../../utils";
+import { PromiseResult } from "aws-sdk/lib/request";
+import { AWSError, S3 } from "aws-sdk";
+
 
 const fs = require("fs");
 const PDFDocument = require("pdfkit-table");
@@ -13,28 +17,56 @@ export class GenerateStockPDF implements GenerateStockPDFUseCase {
     this.itemRepository = dataSource.getRepository(Item)
   }
 
-  async execute(): Promise<boolean> {
+  async execute(recipientEmail: string): Promise<{ status: string, fileUrl: string }> {
     try {
+      const today = new Date();
       let doc = new PDFDocument({ margin: 30, size: 'A4' });
-      // const companies = await this.itemRepository.find({
-      //   where:{},
-      //   relations: {
-      //     company: true
-      //   }
-      // });
-      const items = await this.itemRepository
+      const fileName = `stock_${ today.getTime() }.pdf`
+      let file = fs.createWriteStream(fileName)
+      doc.pipe(file);
+      const [ items ] = await this.itemRepository
         .createQueryBuilder("item")
         .leftJoinAndSelect("item.company", "company")
         .where("company.isDeleted = :isDeleted", { isDeleted: false })
         .getManyAndCount();
-      console.log(items)
-      // doc.pipe(fs.createWriteStream("./document.pdf"));
-      return true
+      const table = {
+        title: "Items Inventory",
+        subtitle: (new Date()).toLocaleDateString(),
+        headers: [
+          { label: 'Id', property: 'id' },
+          { label: 'Name', property: 'name' },
+          { label: 'Stock', property: 'stock' },
+          { label: 'Company', property: 'company' }
+        ],
+        datas: (items as Item[]).map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            stock: item.stock,
+            company: item.company.name
+          };
+        })
+      }
+      await doc.table(table)
+      doc.end();
+      return new Promise((resolve, reject) => {
+        file.on("finish", async function () {
+          try {
+            const response = await uploadToS3(fileName);
+            console.log("sendEmail Response", await sendEmail(recipientEmail, fileName));
+            resolve({
+              status: "success",
+              fileUrl: fileName,
+            });
+          } catch (e) {
+            reject(e)
+          }
+        });
+      })
     } catch (e) {
       console.log(e);
-      return false;
+      // @ts-ignore
+      throw new Error(e.message)
     }
-    // init document
-
   }
 }

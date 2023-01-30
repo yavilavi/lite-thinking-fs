@@ -1,3 +1,3 @@
 export interface GenerateStockPDFUseCase {
-  execute(): Promise<boolean>;
+  execute(sendTo: string): Promise<{ status: string, fileUrl: string }>;
 }

@@ -32,11 +32,13 @@ export default function ItemRouter(
     }
   });
 
-  router.post('/generatePDF', async (req: Request, res: Response) => {
+  router.post('/generatePDFAndSendEmail', async (req: Request, res: Response) => {
     try {
-      const items = await generateStockPDFUseCase.execute()
+      const doc = await generateStockPDFUseCase.execute(req.body.recipientEmail)
+      // doc.pipe(res);
+      // doc.end()
       res.statusCode = 200;
-      res.json(items);
+      res.json(doc);
     } catch (err) {
       res.status(500).send({ message: err })
     }
