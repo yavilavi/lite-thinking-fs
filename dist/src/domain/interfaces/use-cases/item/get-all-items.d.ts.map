@@ -1,0 +1,1 @@
+{"version":3,"file":"get-all-items.d.ts","sourceRoot":"","sources":["../../../../../../src/domain/interfaces/use-cases/item/get-all-items.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,IAAI,EAAE,MAAM,+BAA+B,CAAC;AAErD,MAAM,WAAW,kBAAkB;IACjC,OAAO,IAAI,OAAO,CAAC,IAAI,EAAE,CAAC,CAAC;CAC5B"}

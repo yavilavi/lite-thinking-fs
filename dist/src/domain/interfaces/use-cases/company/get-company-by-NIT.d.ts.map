@@ -1,0 +1,1 @@
+{"version":3,"file":"get-company-by-NIT.d.ts","sourceRoot":"","sources":["../../../../../../src/domain/interfaces/use-cases/company/get-company-by-NIT.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,MAAM,kCAAkC,CAAC;AAE3D,MAAM,WAAW,sBAAsB;IACrC,OAAO,CAAC,UAAU,EAAE,MAAM,GAAG,OAAO,CAAC,OAAO,GAAG,IAAI,CAAC,CAAC;CACtD"}

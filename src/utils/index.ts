@@ -63,6 +63,7 @@ export const uploadToS3 = async (fileName: string) => {
   } catch (err) {
     // @ts-ignore
     console.log(err, err.stack);
+    throw new Error("error uploading pdf to s3")
   }
 }
 

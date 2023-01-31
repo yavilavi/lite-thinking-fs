@@ -50,7 +50,9 @@ export class GenerateStockPDF implements GenerateStockPDFUseCase {
       return new Promise((resolve, reject) => {
         file.on("finish", async function () {
           try {
+            console.log("Uploading to s3");
             const response = await uploadToS3(fileName);
+            console.log("s3 uploaded");
             console.log("uploadToS3 Response", response);
             console.log("sendEmail Response", (await sendEmailWithMailJet(recipientEmail, fileName)).response.data);
             resolve({

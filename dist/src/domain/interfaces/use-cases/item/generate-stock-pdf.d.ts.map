@@ -1,0 +1,1 @@
+{"version":3,"file":"generate-stock-pdf.d.ts","sourceRoot":"","sources":["../../../../../../src/domain/interfaces/use-cases/item/generate-stock-pdf.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,uBAAuB;IACtC,OAAO,CAAC,MAAM,EAAE,MAAM,GAAG,OAAO,CAAC;QAAE,MAAM,EAAE,MAAM,CAAC;QAAC,OAAO,EAAE,MAAM,CAAA;KAAE,CAAC,CAAC;CACvE"}

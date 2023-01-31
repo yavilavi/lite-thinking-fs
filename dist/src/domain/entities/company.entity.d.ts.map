@@ -1,0 +1,1 @@
+{"version":3,"file":"company.entity.d.ts","sourceRoot":"","sources":["../../../../src/domain/entities/company.entity.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,IAAI,EAAE,MAAM,eAAe,CAAC;AAErC,qBACa,OAAO;IAGlB,GAAG,EAAG,MAAM,CAAA;IAGZ,IAAI,EAAG,MAAM,CAAA;IAGb,OAAO,EAAG,MAAM,CAAA;IAGhB,KAAK,EAAG,MAAM,CAAA;IAMd,KAAK,EAAG,IAAI,EAAE,CAAA;IAGd,SAAS,EAAG,OAAO,CAAA;CACpB"}

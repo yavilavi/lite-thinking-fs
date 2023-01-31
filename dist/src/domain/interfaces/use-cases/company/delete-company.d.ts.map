@@ -1,0 +1,1 @@
+{"version":3,"file":"delete-company.d.ts","sourceRoot":"","sources":["../../../../../../src/domain/interfaces/use-cases/company/delete-company.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,SAAS,CAAC;AAEvC,MAAM,WAAW,oBAAoB;IACnC,OAAO,CAAC,UAAU,EAAE,MAAM,GAAG,OAAO,CAAC,YAAY,GAAG,IAAI,CAAC,CAAC;CAC3D"}
