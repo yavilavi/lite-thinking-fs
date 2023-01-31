@@ -34,13 +34,13 @@ export default function ItemRouter(
 
   router.post('/generatePDFAndSendEmail', async (req: Request, res: Response) => {
     try {
-      const doc = await generateStockPDFUseCase.execute(req.body.recipientEmail)
-      // doc.pipe(res);
-      // doc.end()
+      const doc = await generateStockPDFUseCase.execute(req.body.recipientEmail);
       res.statusCode = 200;
       res.json(doc);
     } catch (err) {
-      res.status(500).send({ message: err })
+      console.log(err);
+      // @ts-ignore
+      res.status(500).send({ message: err.messge || "error uploading pdf to s3" })
     }
   });
 

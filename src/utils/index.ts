@@ -51,8 +51,6 @@ export const verifyHash = async (plain: string, hash: string) => {
 
 export const uploadToS3 = async (fileName: string) => {
   const stats = fs.statSync(fileName);
-  console.log("filesize: " + stats.size);
-  console.log("starting s3 putObject");
   try {
     // @ts-ignore
     return await s3.putObject({
@@ -105,7 +103,7 @@ export const sendEmailWithMailJet = async (recipientEmail, pdfUrl) => {
         },
         "To": [
           {
-            "Email": `${recipientEmail}`,
+            "Email": `${ recipientEmail }`,
             "Name": "passenger 1"
           }
         ],
