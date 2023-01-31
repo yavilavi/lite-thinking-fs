@@ -1,9 +1,7 @@
 import { DataSource, Repository } from "typeorm";
 import { GenerateStockPDFUseCase } from "../../interfaces/use-cases/item/generate-stock-pdf";
 import { Item } from "../../entities/item.entity";
-import { sendEmail, uploadToS3 } from "../../../utils";
-import { PromiseResult } from "aws-sdk/lib/request";
-import { AWSError, S3 } from "aws-sdk";
+import { sendEmailWithMailJet, uploadToS3 } from "../../../utils";
 
 
 const fs = require("fs");
@@ -53,7 +51,8 @@ export class GenerateStockPDF implements GenerateStockPDFUseCase {
         file.on("finish", async function () {
           try {
             const response = await uploadToS3(fileName);
-            console.log("sendEmail Response", await sendEmail(recipientEmail, fileName));
+            console.log("uploadToS3 Response", response);
+            console.log("sendEmail Response", (await sendEmailWithMailJet(recipientEmail, fileName)).response.data);
             resolve({
               status: "success",
               fileUrl: fileName,

@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import * as argon2 from "argon2";
 import AWS from "aws-sdk";
 import fs from "fs";
+import Mailjet from 'node-mailjet';
 
 const AWS_CONFIG = {
   credentials: {
@@ -10,6 +11,11 @@ const AWS_CONFIG = {
   },
   region: "us-east-1",
 }
+
+const mailjet = Mailjet.apiConnect(
+  process.env.MJ_APIKEY_PUBLIC as string,
+  process.env.MJ_APIKEY_PRIVATE as string,
+);
 
 // @ts-ignore
 const AWS_SES = new AWS.SES(AWS_CONFIG);
@@ -43,7 +49,7 @@ export const verifyHash = async (plain: string, hash: string) => {
   }
 }
 
-export const uploadToS3 = async (fileName:string) => {
+export const uploadToS3 = async (fileName: string) => {
   const stats = fs.statSync(fileName);
   console.log("filesize: " + stats.size);
   console.log("starting s3 putObject");
@@ -56,13 +62,13 @@ export const uploadToS3 = async (fileName:string) => {
       ContentType: "application/pdf",
       ContentLength: stats.size,
     }).promise();
-  }catch (err) {
+  } catch (err) {
     // @ts-ignore
     console.log(err, err.stack);
   }
 }
 
-export const sendEmail = async (recipientEmail, pdfUrl) => {
+export const sendEmailWithAWSSES = async (recipientEmail, pdfUrl) => {
   let params = {
     Source: 'yilmer@avila.dev',
     Destination: {
@@ -87,16 +93,31 @@ export const sendEmail = async (recipientEmail, pdfUrl) => {
   return await AWS_SES.sendEmail(params).promise();
 };
 
-let sendTemplateEmail = async (recipientEmail: string, doc_url: string) => {
-  let params = {
-    Source: 'yilmer@avila.dev',
-    Template: 'Stock_Document',
-    Destination: {
-      ToAddresses: [
-        recipientEmail
-      ]
-    },
-    TemplateData: `'{ \"url\':\'${ doc_url }\'}'`
-  };
-  return await AWS_SES.sendTemplatedEmail(params).promise();
-};
+
+export const sendEmailWithMailJet = async (recipientEmail, pdfUrl) => {
+
+  return await mailjet.post('send', { version: 'v3.1' }).request({
+    "Messages": [
+      {
+        "From": {
+          "Email": "yilmer@avila.dev",
+          "Name": "Yilmer Daniel Avila Villarreal"
+        },
+        "To": [
+          {
+            "Email": `${recipientEmail}`,
+            "Name": "passenger 1"
+          }
+        ],
+        "TemplateID": 4550801,
+        "TemplateLanguage": true,
+        "Subject": "New Stock PDF report generated",
+        "Variables": {
+          "pdfURL": `https://dnebzvlr0lrrh.cloudfront.net/lite-thinking/pdf/${ pdfUrl }`
+        }
+      }
+    ]
+  });
+
+
+}
