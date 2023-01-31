@@ -100,7 +100,7 @@ export const sendEmailWithMailJet = async (recipientEmail, pdfUrl) => {
     "Messages": [
       {
         "From": {
-          "Email": "yilmer@avila.dev",
+          "Email": "no-reply@yilmer.work",
           "Name": "Yilmer Daniel Avila Villarreal"
         },
         "To": [
