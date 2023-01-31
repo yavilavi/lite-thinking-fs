@@ -1,6 +1,7 @@
 import { UpdateCompanyUseCase } from "../../interfaces/use-cases/company/update-company";
 import { DataSource, Repository, UpdateResult } from "typeorm";
 import { Company } from "../../entities/company.entity";
+import { updateCompanySchema } from "../../interfaces/validations/companyValidations";
 
 export class UpdateCompany implements UpdateCompanyUseCase {
   companyRepository: Repository<Company>
@@ -10,7 +11,10 @@ export class UpdateCompany implements UpdateCompanyUseCase {
   }
 
   async execute(company: Partial<Company>, NIT: string): Promise<UpdateResult | null> {
-    return await this.companyRepository.update(NIT, { ...company });
-
+    const valid = await updateCompanySchema.isValid(company);
+    if (valid) {
+      return await this.companyRepository.update(NIT, { ...company });
+    }
+    throw new Error("Company data is not valid")
   }
 }

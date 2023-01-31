@@ -8,7 +8,7 @@ const options: DataSourceOptions = {
   subscribers: [],
   migrations: [],
   entities: [ User, Item, Company ],
-  host: process.env.PG_DB_HOSTNAME ,
+  host: process.env.PG_DB_HOSTNAME,
   port: 3002,
   username: process.env.PG_DB_USERNAME ,
   password: process.env.PG_DB_PASSWORD,
